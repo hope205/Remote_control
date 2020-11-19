@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "171493396516",
+    "firebase_url": "https://remote-control-c35b5.firebaseio.com",
+    "project_id": "remote-control-c35b5",
+    "storage_bucket": "remote-control-c35b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171493396516:android:8debae86fd876267c908b1",
+        "android_client_info": {
+          "package_name": "ogidanhope.remote_control"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171493396516-p32jrdd0fiophh4153d5705n3vsu2bb0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHoMnL_Ta12lcAcV_nk39kDFsGH0HSLfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171493396516-p32jrdd0fiophh4153d5705n3vsu2bb0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
