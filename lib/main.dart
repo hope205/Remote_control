@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'controlPage.dart';
+import 'task_data.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Control(),
+      home: ChangeNotifierProvider(
+        create: (context) => Data(),
+        child: Control(),
+      ),
     );
   }
 }

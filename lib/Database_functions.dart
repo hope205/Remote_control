@@ -1,20 +1,21 @@
 import 'package:firebase_database/firebase_database.dart';
-
+import 'package:provider/provider.dart';
+import 'task_data.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 
 DatabaseReference databaseRef = FirebaseDatabase.instance.reference();
 
-String groupname;
-String name;
-String value;
+String gname;
+String fname;
+String Tval;
 
 class Functions {
-  Future<void> createData(
-      {@required String GroupName,
-      @required String name,
-      @required BuildContext context,
-      @required int value}) async {
+  void createData({
+    @required String GroupName,
+    @required String name,
+    @required String value,
+  }) {
     databaseRef.child(GroupName).set({
       "Name": name,
       "State": value,
@@ -39,7 +40,7 @@ class Functions {
                 labelText: 'Group Name',
               ),
               onChanged: (value) {
-                groupname = value;
+                gname = value;
               },
             ),
             TextField(
@@ -48,29 +49,38 @@ class Functions {
                 labelText: 'Name',
               ),
               onChanged: (value) {
-                name = value;
+                fname = value;
               },
             ),
             TextField(
-              obscureText: true,
               decoration: InputDecoration(
                 icon: Icon(Icons.lock),
                 labelText: 'Value',
               ),
-              onChanged: (val) {
-                value = val;
+              onChanged: (number) {
+                Tval = number;
               },
             ),
           ],
         ),
         buttons: [
           DialogButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Provider.of<Data>(context, listen: false).updateGroupname(gname);
+              Provider.of<Data>(context, listen: false).updateName(fname);
+              Provider.of<Data>(context, listen: false).updateVlaue(Tval);
+              return Navigator.pop(context);
+            },
             child: Text(
               "CREATE",
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           )
         ]).show();
+    createData(
+      GroupName: Provider.of<Data>(context, listen: false).groupname,
+      name: Provider.of<Data>(context, listen: false).name,
+      value: Provider.of<Data>(context, listen: false).value,
+    );
   }
 }

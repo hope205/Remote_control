@@ -19,9 +19,11 @@ class _ControlState extends State<Control> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            Database.createData(GroupName: null, value: null)
+          onPressed: () {
+            Database.alert(context: context);
+            // Database.createData(GroupName: 'test', name: 'led', value: '0');
           },
+          child: Icon(Icons.add),
         ),
         body: Center(
           child: Container(
@@ -43,7 +45,7 @@ class _ControlState extends State<Control> {
                 MaterialButton(
                   onPressed: () {
                     setState(() {
-                      Database.updateData(GroupName: null, value: null);
+                      // Database.updateData(GroupName: null, value: null);
                       message = 'Light On';
                     });
                   },
@@ -80,7 +82,3 @@ class _ControlState extends State<Control> {
     );
   }
 }
-
-
-
-
