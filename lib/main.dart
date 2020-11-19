@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'controlPage.dart';
-import 'task_data.dart';
+import 'functions/task_data.dart';
 
 void main() {
   runApp(MyApp());

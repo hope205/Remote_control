@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Database_functions.dart';
+import 'functions/Database_functions.dart';
 
 Functions Database = Functions();
 
