@@ -1,23 +1,45 @@
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter/material.dart';
+import 'switchs.dart';
 
 class Data extends ChangeNotifier {
   String groupname = '';
   String name = '';
   String value = '';
 
-  bool status1 = false;
+  // switch functions
 
-  List<bool> status = [];
+  Map<String, bool> status = {
+    'status1': false,
+  };
 
-  List<FlutterSwitch> Switchs = [];
+  List<Switchs> Switches = [];
 
-  void AddSwitch() {}
-
-  void changStat(bool value) {
-    status1 = value;
+  void createSwitch(String itemName) {
+    createStatus(itemName);
+    Switches.add(Switchs(name: itemName));
+    print(itemName);
     notifyListeners();
   }
+
+  void createStatus(String name) {
+    status[name] = false;
+    print(status[name]);
+    notifyListeners();
+  }
+
+  bool SwitchState(String identity) {
+    print('identit : ${status[identity]}');
+    return status[identity];
+  }
+
+  void changStatus(bool value, String identity) {
+    // bool x = identity;
+    status[identity] = value;
+    notifyListeners();
+  }
+
+  // Database functions
 
   void updateGroupname(String text) {
     groupname = text;

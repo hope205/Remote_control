@@ -69,6 +69,7 @@ class Functions {
               Provider.of<Data>(context, listen: false).updateGroupname(gname);
               Provider.of<Data>(context, listen: false).updateName(fname);
               Provider.of<Data>(context, listen: false).updateVlaue(Tval);
+              Provider.of<Data>(context, listen: false).createSwitch(fname);
               return Navigator.pop(context);
             },
             child: Text(
