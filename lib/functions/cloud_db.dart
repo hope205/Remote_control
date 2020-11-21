@@ -28,6 +28,12 @@ class Functions {
     });
   }
 
+  Future DeleteData({
+    @required String GroupName,
+  }) async {
+    await databaseRef.child(GroupName).remove();
+  }
+
   Future<void> alert({@required context}) async {
     await Alert(
         context: context,
@@ -69,7 +75,13 @@ class Functions {
               Provider.of<Data>(context, listen: false).updateGroupname(gname);
               Provider.of<Data>(context, listen: false).updateName(fname);
               Provider.of<Data>(context, listen: false).updateVlaue(Tval);
-              Provider.of<Data>(context, listen: false).createSwitch(fname);
+              Provider.of<Data>(context, listen: false)
+                  .createSwitch(fname, gname);
+
+              //database
+
+              // DBProvider.db.newName(fname);
+
               return Navigator.pop(context);
             },
             child: Text(
