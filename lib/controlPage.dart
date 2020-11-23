@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:remote_control/functions/local_db.dart';
-import 'functions/Database_functions.dart';
+import 'package:remote_control/functions/Database/local_db.dart';
+import 'functions/Database/cloud_db.dart';
 import 'package:provider/provider.dart';
 import 'functions/task_data.dart';
+import 'functions/Database/local_db.dart';
 
 Functions Database = Functions();
 
@@ -17,16 +18,21 @@ class _ControlState extends State<Control> {
   Future _nameFuture;
 
   getName() async {
-    final _nameData = await DBProvider.db.getName();
+    await DBProvider.db.database;
     List<Map> result = await DBProvider.db.getName();
-    for (int i = 0; i < result.length; i++) {
+    int len = result.length;
+    if (len == null) {
+      bool value = true;
+    }
+    for (int i = 0; i < len; i++) {
       var x = result[i]['name'];
       var b = result[i]['group'];
-      await Provider.of<Data>(context, listen: false).createStartSwitch(x);
+
+      await Provider.of<Data>(context, listen: false).createStartSwitch(x, b);
     }
-    // await DBProvider.db.deleteDatabse();
     return true;
   }
+  // await DBProvider.db.deleteDatabse();
 
   @override
   void initState() {
@@ -38,6 +44,17 @@ class _ControlState extends State<Control> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            GestureDetector(
+              child: Icon(Icons.delete),
+              onTap: () async {
+                await Provider.of<Data>(context, listen: false)
+                    .DeleteAllSwitch();
+              },
+            ),
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Database.alert(context: context);

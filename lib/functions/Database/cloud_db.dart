@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:provider/provider.dart';
-import 'task_data.dart';
+import '../task_data.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +31,11 @@ class Functions {
   Future DeleteData({
     @required String GroupName,
   }) async {
-    await databaseRef.child(GroupName).remove();
+    try {
+      await databaseRef.child(GroupName).remove();
+    } catch (e) {
+      print('cloud error : $e');
+    }
   }
 
   Future<void> alert({@required context}) async {

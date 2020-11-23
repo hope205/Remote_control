@@ -1,7 +1,7 @@
-import 'local_db.dart';
+import 'Database/local_db.dart';
 import 'package:flutter/material.dart';
 import 'switchs.dart';
-import 'cloud_db.dart';
+import 'Database/cloud_db.dart';
 
 Functions cloud = Functions();
 
@@ -33,7 +33,14 @@ class Data extends ChangeNotifier {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Switchs(name: itemName),
+            child:
+                // Switchs(name: itemName),
+                GestureDetector(
+              child: Switchs(name: itemName),
+              onLongPress: () async {
+                await DeleteSwitch(itemName, groupd);
+              },
+            ),
           ),
         ],
       ),
@@ -42,7 +49,7 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
-  void createStartSwitch(String itemName) {
+  void createStartSwitch(String itemName, String groupd) {
     createStatus(itemName);
     Switches.add(Padding(
       padding: const EdgeInsets.all(8.0),
@@ -54,7 +61,13 @@ class Data extends ChangeNotifier {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Switchs(name: itemName),
+            child:
+                // Switchs(name: itemName),
+                GestureDetector(
+                    child: Switchs(name: itemName),
+                    onLongPress: () async {
+                      await DeleteSwitch(itemName, groupd);
+                    }),
           ),
         ],
       ),
@@ -69,7 +82,30 @@ class Data extends ChangeNotifier {
     Switches.remove(itemName);
     print('deleted');
 
+    var x;
+    var b;
+    // page
+    List<Map> result = await DBProvider.db.getName();
+    int len = result.length;
+    if (len == null) {
+      bool value = true;
+    }
+    for (int i = 0; i < len; i++) {
+      x = result[i]['name'];
+      b = result[i]['group'];
+    }
+    createStartSwitch(x, b);
+
     notifyListeners();
+  }
+
+  Future DeleteAllSwitch() async {
+    List<Map> result = await DBProvider.db.getName();
+    for (int i = 0; i < result.length; i++) {
+      var x = result[i]['name'];
+      var b = result[i]['group'];
+      DeleteSwitch(x, b);
+    }
   }
 
   void createStatus(String name) {
