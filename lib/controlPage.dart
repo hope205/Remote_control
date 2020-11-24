@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'functions/task_data.dart';
 import 'functions/Database/local_db.dart';
 
-Functions Database = Functions();
+Functions database = Functions();
 
 class Control extends StatefulWidget {
   @override
@@ -13,31 +13,30 @@ class Control extends StatefulWidget {
 }
 
 class _ControlState extends State<Control> {
-  Map<String, String> newName = {};
+  String value;
+  Future tem;
 
-  Future _nameFuture;
-
-  getName() async {
-    await DBProvider.db.database;
+  Future getName() async {
+    // await DBProvider.db.database;
     List<Map> result = await DBProvider.db.getName();
     int len = result.length;
     if (len == null) {
-      bool value = true;
+      print('no list');
+      value = 'not';
     }
     for (int i = 0; i < len; i++) {
       var x = result[i]['name'];
       var b = result[i]['group'];
 
-      await Provider.of<Data>(context, listen: false).createStartSwitch(x, b);
+      Provider.of<Data>(context, listen: false).createStartSwitch(x, b);
     }
-    return true;
+    value = 'yes';
   }
-  // await DBProvider.db.deleteDatabse();
 
   @override
   void initState() {
     super.initState();
-    _nameFuture = getName();
+    tem = getName();
   }
 
   @override
@@ -57,8 +56,7 @@ class _ControlState extends State<Control> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Database.alert(context: context);
-            // Database.createData(GroupName: 'test', name: 'led', value: '0');
+            database.alert(context: context);
           },
           child: Icon(Icons.add),
         ),
@@ -71,15 +69,22 @@ class _ControlState extends State<Control> {
               Expanded(
                 child: Container(
                   width: 200,
-                  child: ListView(
-                    children: Provider.of<Data>(context, listen: true).Switches,
+                  child: FutureBuilder(
+                    future: tem,
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                          return Container();
+                        case ConnectionState.done:
+                          return ListView(
+                            children: Provider.of<Data>(context, listen: true)
+                                .Switches,
+                          );
+                        default:
+                          return Container();
+                      }
+                    },
                   ),
-
-                  // Provider.of<Data>(context, listen: true).Switches,
-                  // ListView.builder(
-                  //   itemBuilder: (context, index) {
-                  //     return true;
-                  //   },
                 ),
               ),
             ],

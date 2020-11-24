@@ -26,19 +26,6 @@ class DBProvider {
     }
   }
 
-  // Future<String> databasePath(String dbName) async {
-  //   final DatabasePath = await getDatabasesPath();
-  //   final path = join(DatabasePath, dbName);
-  //
-  //   //check if the thepath exists
-  //   if (await Directory(dirname(path)).exists()) {
-  //     await deleteDatabase(path);
-  //   } else {
-  //     await Directory(dirname(path)).create(recursive: true);
-  //   }
-  //   return path;
-  // }
-
   Future initDB() async {
     // final path = await databasePath('control.db');
     Directory directory = await getApplicationDocumentsDirectory();
@@ -48,6 +35,7 @@ class DBProvider {
     return db;
   }
 
+  //creates the database table
   Future _onCreate(Database db, int version) async {
     try {
       await db.execute('''
@@ -59,40 +47,9 @@ class DBProvider {
     print('correct');
   }
 
-  // Future<String> databasePath(String dbName) async {
-  //   final DatabasePath = await getDatabasesPath();
-  //   final path = join(DatabasePath, dbName);
-  //
-  //   //check if the thepath exists
-  //   if (await Directory(dirname(path)).exists()) {
-  //     await deleteDatabase(path);
-  //   } else {
-  //     await Directory(dirname(path)).create(recursive: true);
-  //   }
-  //   return path;
-  // }
+  //this function enables you to add values to your database
 
-  // initDB() async {
-  //   // var db = 'remot.db';
-  //   // final db = await database;
-  //   final path = await databasePath('remot.db');
-  //   return await openDatabase(
-  //     path,
-  //     onCreate: (db, version) async {
-  //       try {
-  //         await db.execute(
-  //           'CREATE TABLE switch (id INTEGER PRIMARY KEY , name TEXT ,group TEXT)',
-  //         );
-  //       } catch (e) {
-  //         print('this is exception : $e');
-  //       }
-  //     },
-  //     version: 1,
-  //   );
-  // }
-  // 'CREATE TABLE switch(id INTEGER  PRIMARY KEY NOT NULL, name TEXT NOT NULL, group TEXT NOT NULL)'
-
-  Future<dynamic> newName({String newName, String groups}) async {
+  Future<dynamic> CreateNewName({String newName, String groups}) async {
     var res;
     final db = await database;
     try {
@@ -105,6 +62,8 @@ class DBProvider {
     return res;
   }
 
+  //it helps you to delete data from datebase
+
   Future<dynamic> DeleteName(identity) async {
     var res;
     final db = await database;
@@ -116,6 +75,8 @@ class DBProvider {
     }
     return res;
   }
+
+  //it helps you to get names from the datebase
 
   Future<dynamic> getName() async {
     final db = await database;
@@ -131,9 +92,4 @@ class DBProvider {
       print('getName error: $e');
     }
   }
-
-  // Future deleteDatabse() async {
-  //   String path = join(await getDatabasesPath(), 'control.db');
-  //   await deleteDatabase(path);
-  // }
 }

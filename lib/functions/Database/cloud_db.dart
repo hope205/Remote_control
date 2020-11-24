@@ -8,7 +8,7 @@ DatabaseReference databaseRef = FirebaseDatabase.instance.reference();
 
 String gname;
 String fname;
-String Tval;
+String tval;
 
 class Functions {
   void createData({
@@ -42,49 +42,15 @@ class Functions {
     await Alert(
         context: context,
         title: "Create",
-        content: Column(
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                icon: Icon(Icons.account_circle),
-                labelText: 'Group Name',
-              ),
-              onChanged: (value) {
-                gname = value;
-              },
-            ),
-            TextField(
-              decoration: InputDecoration(
-                icon: Icon(Icons.account_circle),
-                labelText: 'Name',
-              ),
-              onChanged: (value) {
-                fname = value;
-              },
-            ),
-            TextField(
-              decoration: InputDecoration(
-                icon: Icon(Icons.lock),
-                labelText: 'Value',
-              ),
-              onChanged: (number) {
-                Tval = number;
-              },
-            ),
-          ],
-        ),
+        content: AlertColumn(),
         buttons: [
           DialogButton(
             onPressed: () {
               Provider.of<Data>(context, listen: false).updateGroupname(gname);
               Provider.of<Data>(context, listen: false).updateName(fname);
-              Provider.of<Data>(context, listen: false).updateVlaue(Tval);
+              Provider.of<Data>(context, listen: false).updateVlaue(tval);
               Provider.of<Data>(context, listen: false)
                   .createSwitch(fname, gname);
-
-              //database
-
-              // DBProvider.db.newName(fname);
 
               return Navigator.pop(context);
             },
@@ -98,6 +64,44 @@ class Functions {
       GroupName: Provider.of<Data>(context, listen: false).groupname,
       name: Provider.of<Data>(context, listen: false).name,
       value: Provider.of<Data>(context, listen: false).value,
+    );
+  }
+}
+
+class AlertColumn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        TextField(
+          autofocus: true,
+          decoration: InputDecoration(
+            icon: Icon(Icons.account_circle),
+            labelText: 'Group Name',
+          ),
+          onChanged: (value) {
+            gname = value;
+          },
+        ),
+        TextField(
+          decoration: InputDecoration(
+            icon: Icon(Icons.account_circle),
+            labelText: 'Name',
+          ),
+          onChanged: (value) {
+            fname = value;
+          },
+        ),
+        TextField(
+          decoration: InputDecoration(
+            icon: Icon(Icons.lock),
+            labelText: 'Value',
+          ),
+          onChanged: (number) {
+            tval = number;
+          },
+        ),
+      ],
     );
   }
 }
