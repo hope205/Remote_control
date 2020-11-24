@@ -3,11 +3,11 @@
 #include <FirebaseArduino.h>
 
 // Set these to run example.
-//"remote-control-c35b5.firebaseio.com"
-#define FIREBASE_HOST "remote-control-c35b5.firebaseio.com"
-#define FIREBASE_AUTH "90jnpNBthOM4NABx8rw674t1IUx7L42KjBc1fscK"
-#define WIFI_SSID "Hope"
-#define WIFI_PASSWORD "hopeabcdef"
+
+#define FIREBASE_HOST "firebase host"
+#define FIREBASE_AUTH "firebase auth"
+#define WIFI_SSID "wifi ssid"
+#define WIFI_PASSWORD "wifi password"
 
 
 #define relayPin D3;
